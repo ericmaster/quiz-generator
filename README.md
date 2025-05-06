@@ -13,13 +13,14 @@ This is a Svelte-based web application for a Quiz generator, created using Vite.
    ```bash
    npm install
    ```
+2. Create your MCQs in the data folder (see [data/README.md](data/README.md))
 
-2. Run the development server:
+3. Run the development server:
    ```bash
    npm run dev
    ```
 
-3. Open the app in your browser at the provided local development URL.
+4. Open the app in your browser at the provided local development URL.
 
 ## Project Structure
 - `src/`: Contains the main application code.

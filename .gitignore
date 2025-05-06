@@ -28,3 +28,4 @@ legacy
 
 # Questions data
 data/*.json
+!data/mcqs_sample.json
