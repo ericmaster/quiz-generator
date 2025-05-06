@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import QuizQuestions from "./lib/QuizQuestions.svelte";
+  import Questions from "./components/Questions.svelte";
+  import Result from "./components/Result.svelte";
   import { shuffleArray } from "./lib/utils.js";
   let quiz_name = "";
   let manifest = {};
@@ -31,17 +32,23 @@
 
   function submitQuiz() {
     let score = 0;
-    result = "";
+    const detailedResults = [];
 
     questions.forEach((q, i) => {
-      if (userAnswers[i] === q.answer) {
+      const isCorrect = userAnswers[i] === q.answer;
+      if (isCorrect) {
         score++;
-      } else {
-        result += `\nQ${i + 1}: ${q.question}\nYour answer: ${userAnswers[i] || "No answer selected"}\nCorrect Answer: ${q.answer}\nExplanation: ${q.explanation || "No explanation provided."}\n`;
       }
+      detailedResults.push({
+        question: q.question,
+        userAnswer: userAnswers[i] || "No answer selected",
+        correctAnswer: q.answer,
+        explanation: q.explanation || "No explanation provided.",
+        isCorrect,
+      });
     });
 
-    result = `Your score: ${score}/${questions.length}\n` + result;
+    result = { score, total: questions.length, detailedResults };
   }
 
   onMount(() => {
@@ -84,19 +91,22 @@
     >
       Load Quiz
     </button>
-    <button
-      on:click={submitQuiz}
-      class="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600"
-    >
-      Submit
-    </button>
   </div>
 
-  <QuizQuestions {questions} bind:userAnswers />
+  {#if questions.length > 0}
+    <Questions {questions} bind:userAnswers />
 
-  <div id="result" class="bg-white p-6 rounded-lg shadow-md">
-    {#if result}
-      <pre>{result}</pre>
-    {/if}
-  </div>
+    <div class="flex justify-center gap-4 mb-6">
+      <button
+        on:click={submitQuiz}
+        class="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600"
+      >
+        Submit
+      </button>
+    </div>
+  {/if}
+
+  {#if result}
+    <Result {result} />
+  {/if}
 </main>

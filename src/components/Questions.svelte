@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { shuffleArray } from './utils.js';
+  import { shuffleArray } from '../lib/utils.js';
   export let questions = [];
   export let userAnswers = [];
 
