@@ -8,7 +8,7 @@
   let topics = [];
   let questions = [];
   let userAnswers = [];
-  let result = "";
+  let result = { score: 0, total: 0, detailedResults: [] };
 
   async function loadManifest() {
     const response = await fetch("data/manifest.json");
@@ -39,13 +39,15 @@
       if (isCorrect) {
         score++;
       }
-      detailedResults.push({
-        question: q.question,
-        userAnswer: userAnswers[i] || "No answer selected",
-        correctAnswer: q.answer,
-        explanation: q.explanation || "No explanation provided.",
-        isCorrect,
-      });
+      else {
+        detailedResults.push({
+          question: q.question,
+          userAnswer: userAnswers[i] || "No answer selected",
+          correctAnswer: q.answer,
+          explanation: q.explanation || "No explanation provided.",
+          isCorrect,
+        });
+      }
     });
 
     result = { score, total: questions.length, detailedResults };
@@ -106,7 +108,7 @@
     </div>
   {/if}
 
-  {#if result}
+  {#if result.total}
     <Result {result} />
   {/if}
 </main>
