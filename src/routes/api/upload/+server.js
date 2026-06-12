@@ -1,6 +1,7 @@
 import { getDb } from '$lib/server/db.js';
 import { document } from '$lib/server/schema.js';
 import { MAX_DOCUMENT_BYTES } from '$lib/parse.js';
+import { processDocument } from '$lib/server/ingest.js';
 
 /**
  * @type {import('./$types').RequestHandler}
@@ -124,6 +125,17 @@ export async function POST(event) {
       JSON.stringify({ error: 'Failed to record document metadata' }), 
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
+  }
+
+  // 6.5 Kick off background ingestion processing
+  const processPromise = processDocument(platform.env, documentId);
+  if (platform.context && typeof platform.context.waitUntil === 'function') {
+    platform.context.waitUntil(processPromise);
+  } else {
+    // Fallback: fire and forget, catching errors to avoid unhandled promise rejections
+    processPromise.catch(err => {
+      console.error('Background processing failed in fallback context:', err);
+    });
   }
 
   // 7. Success Response

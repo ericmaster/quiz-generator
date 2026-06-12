@@ -95,7 +95,7 @@ Implement client-side parsing of Documents (PDF, plain text, or Markdown) to ext
 ---
 
 ## Phase 4: AI Integration & Topic Extraction
-### Status: `[ ] Not Started`
+### Status: `[x] Completed`
 
 **Description:** 
 Integrate OpenRouter to process the uploaded text, extract topics, and chunk the text for vectorization. Processing runs in the background via `ctx.waitUntil` after the upload response returns; the Document carries a status (`pending` → `processing` → `ready` / `failed`) that the UI polls, with a manual retry endpoint for failures (no Queues on the free plan).
@@ -116,9 +116,9 @@ Integrate OpenRouter to process the uploaded text, extract topics, and chunk the
 - **Testing:** Subagent provides a sample text block to the chunker and topic extractor, verifying the outputs meet expected formats.
 
 **Definition of Done:**
-- [ ] Uploaded text is automatically chunked.
-- [ ] OpenRouter successfully returns topics for the text.
-- [ ] Topics and Chunks are saved to D1.
+- [x] Uploaded text is automatically chunked.
+- [x] OpenRouter successfully returns topics for the text.
+- [x] Topics and Chunks are saved to D1.
 
 ---
 
