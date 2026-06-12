@@ -40,7 +40,7 @@ Migrate the existing Vite SPA to a SvelteKit application targeting Cloudflare Wo
 ---
 
 ## Phase 2: Authentication & Database Setup
-### Status: `[ ] Not Started`
+### Status: `[x] Completed`
 
 **Description:** 
 Implement user authentication using Better Auth and setup the Cloudflare D1 database schema for users, sessions, documents, and topics.
@@ -61,9 +61,9 @@ Implement user authentication using Better Auth and setup the Cloudflare D1 data
 - **Testing:** Subagent runs local wrangler D1 commands to execute the schema and test inserting/querying dummy user data.
 
 **Definition of Done:**
-- [ ] D1 database is provisioned locally and schema is applied.
-- [ ] Users can log in and log out using Better Auth.
-- [ ] Protected routes correctly redirect unauthenticated users.
+- [x] D1 database is provisioned locally and schema is applied.
+- [x] Users can log in and log out using Better Auth.
+- [x] Protected routes correctly redirect unauthenticated users.
 
 ---
 

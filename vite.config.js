@@ -12,9 +12,11 @@ if (existsSync('./vite.config.local.js')) {
 
 export default defineConfig({
   plugins: [sveltekit()],
-  resolve: {
-    conditions: process.env.VITEST ? ['browser'] : [],
-  },
+  ...(process.env.VITEST ? {
+    resolve: {
+      conditions: ['browser']
+    }
+  } : {}),
   test: {
     include: ['src/**/*.{test,spec}.{js,ts}'],
     environment: 'jsdom',
