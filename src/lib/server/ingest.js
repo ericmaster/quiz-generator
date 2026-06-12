@@ -3,6 +3,7 @@ import { document, chunk, topic, documentTopic } from './schema.js';
 import { eq, and } from 'drizzle-orm';
 import { chunkText } from './chunk.js';
 import { chatJSON, parseTopicsResponse } from './ai/openrouter.js';
+import { embedTexts } from './embed.js';
 
 /**
  * Sample up to `maxChars` from `text` as head + middle + tail slices, so topic
@@ -56,25 +57,71 @@ export async function processDocument(env, documentId) {
     }
     const text = await r2Object.text();
 
-    // 4. Idempotency: delete existing chunks and topic links for this document
+    // 4. Idempotency: collect old chunk IDs and delete existing chunks/topic links
+    let oldChunkIds = [];
+    try {
+      const oldChunks = await db.select({ id: chunk.id }).from(chunk).where(eq(chunk.documentId, documentId));
+      oldChunkIds = oldChunks.map(c => c.id);
+    } catch (dbErr) {
+      console.error(`[Ingest] Failed to fetch old chunks for document ${documentId}:`, dbErr);
+    }
+
+    if (oldChunkIds.length > 0 && env.VECTORIZE) {
+      try {
+        await env.VECTORIZE.deleteByIds(oldChunkIds);
+        console.log(`[Ingest] Deleted ${oldChunkIds.length} old vectors from Vectorize`);
+      } catch (vecErr) {
+        console.error(`[Ingest] Best-effort Vectorize deletion failed for document ${documentId}:`, vecErr);
+        // Continue database deletion anyway
+      }
+    }
+
     await db.delete(chunk).where(eq(chunk.documentId, documentId));
     await db.delete(documentTopic).where(eq(documentTopic.documentId, documentId));
 
     // 5. Chunk the text and insert chunk rows
     const chunks = chunkText(text);
+    const chunkRows = [];
     if (chunks.length > 0) {
-      const chunkRows = chunks.map(c => ({
-        id: crypto.randomUUID(),
-        documentId,
-        content: c.content,
-        chunkIndex: c.chunkIndex
-      }));
+      chunks.forEach(c => {
+        chunkRows.push({
+          id: crypto.randomUUID(),
+          documentId,
+          content: c.content,
+          chunkIndex: c.chunkIndex
+        });
+      });
 
       // Batch inserts in sizes of 100 to avoid D1 payload limitations
       const BATCH_SIZE = 100;
       for (let i = 0; i < chunkRows.length; i += BATCH_SIZE) {
         const batch = chunkRows.slice(i, i + BATCH_SIZE);
         await db.insert(chunk).values(batch);
+      }
+
+      // 5.5. Embed chunks and upsert to Vectorize
+      if (!env.AI || !env.VECTORIZE) {
+        console.warn("[Ingest] AI or VECTORIZE binding is missing from env. Skipping vector embedding.");
+      } else {
+        console.log(`[Ingest] Generating embeddings for ${chunkRows.length} chunks`);
+        const textsToEmbed = chunkRows.map(c => c.content);
+        const embeddings = await embedTexts(env, textsToEmbed);
+
+        const vectors = chunkRows.map((c, idx) => ({
+          id: c.id,
+          values: embeddings[idx],
+          metadata: {
+            user_id: doc.userId,
+            document_id: documentId
+          }
+        }));
+
+        console.log(`[Ingest] Upserting ${vectors.length} vectors to Vectorize`);
+        const UPSERT_BATCH_SIZE = 100;
+        for (let i = 0; i < vectors.length; i += UPSERT_BATCH_SIZE) {
+          const batch = vectors.slice(i, i + UPSERT_BATCH_SIZE);
+          await env.VECTORIZE.upsert(batch);
+        }
       }
     }
 

@@ -23,5 +23,21 @@
       "binding": "DOCS_BUCKET",
       "bucket_name": "quiz-generator-docs"
     }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  // Vectorize index for chunk embeddings (@cf/baai/bge-m3, 1024-dim).
+  // The index + metadata indexes must be created once against your Cloudflare
+  // account before deploying (metadata indexes MUST exist before vectors are
+  // inserted for filtering to work):
+  //   wrangler vectorize create quiz-generator-chunks --dimensions=1024 --metric=cosine
+  //   wrangler vectorize create-metadata-index quiz-generator-chunks --property-name=user_id --type=string
+  //   wrangler vectorize create-metadata-index quiz-generator-chunks --property-name=document_id --type=string
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "quiz-generator-chunks"
+    }
   ]
 }

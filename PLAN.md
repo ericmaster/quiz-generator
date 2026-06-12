@@ -123,7 +123,7 @@ Integrate OpenRouter to process the uploaded text, extract topics, and chunk the
 ---
 
 ## Phase 5: Hybrid Search Pipeline (Vectorize + D1 FTS5)
-### Status: `[ ] Not Started`
+### Status: `[x] Completed`
 
 **Description:** 
 Embed the chunks using Cloudflare AI, store them in Vectorize, and implement the hybrid search retrieval pipeline.
@@ -145,8 +145,8 @@ Embed the chunks using Cloudflare AI, store them in Vectorize, and implement the
 - **Testing:** Subagent runs a mock search query to ensure both D1 and Vectorize results are merged and ranked properly.
 
 **Definition of Done:**
-- [ ] Chunks are successfully embedded and stored.
-- [ ] Hybrid search function returns relevant chunks for a given user query.
+- [x] Chunks are successfully embedded and stored.
+- [x] Hybrid search function returns relevant chunks for a given user query.
 
 ---
 

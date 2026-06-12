@@ -330,4 +330,101 @@ describe('Document ingestion pipeline', () => {
     const linkedTopic = await db.select().from(topic).where(eq(topic.id, links[0].topicId));
     expect(linkedTopic[0].name).toBe('TopicB');
   });
+
+  test('successfully embeds and upserts vectors to Vectorize during ingestion, and handles retries', async () => {
+    const db = getDb(env);
+    const docId = 'doc-vector-test';
+    const r2Key = 'documents/user-456/doc-vector-test.txt';
+    const docText = 'Paragraph 1 of our test document. Paragraph 2 of the same document.';
+
+    await db.insert(document).values({
+      id: docId,
+      userId: 'user-456',
+      filename: 'vector.txt',
+      mimeType: 'text/plain',
+      sizeBytes: docText.length,
+      r2Key,
+      status: 'pending',
+      createdAt: new Date()
+    });
+    await mockBucket.put(r2Key, docText);
+
+    // 1. Setup AI and Vectorize fakes
+    const upsertedVectors = [];
+    const deletedIds = [];
+
+    const fakeAi = {
+      run: vi.fn().mockImplementation(async (model, options) => {
+        expect(model).toBe('@cf/baai/bge-m3');
+        return {
+          shape: [options.text.length, 1024],
+          data: options.text.map((_, idx) => Array(1024).fill(idx + 0.5))
+        };
+      })
+    };
+
+    const fakeVectorize = {
+      upsert: vi.fn().mockImplementation(async (vectors) => {
+        upsertedVectors.push(...vectors);
+        return { success: true };
+      }),
+      deleteByIds: vi.fn().mockImplementation(async (ids) => {
+        deletedIds.push(...ids);
+        return { success: true };
+      })
+    };
+
+    env.AI = fakeAi;
+    env.VECTORIZE = fakeVectorize;
+
+    // OpenRouter stub
+    vi.mocked(globalThis.fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        choices: [{ message: { content: '["Vector", "Embedding"]' } }]
+      })
+    });
+
+    // 2. Run ingestion (First time)
+    await processDocument(env, docId);
+
+    // Assert document reached ready
+    const docs = await db.select().from(document).where(eq(document.id, docId));
+    expect(docs[0].status).toBe('ready');
+
+    // Assert chunks in DB
+    const chunks = await db.select().from(chunk).where(eq(chunk.documentId, docId));
+    expect(chunks.length).toBeGreaterThan(0);
+
+    // Assert AI and Vectorize were called
+    expect(fakeAi.run).toHaveBeenCalled();
+    expect(fakeVectorize.upsert).toHaveBeenCalled();
+
+    // Assert vector ids map to D1 chunks and metadata is correct
+    expect(upsertedVectors).toHaveLength(chunks.length);
+    chunks.forEach((c, idx) => {
+      const vec = upsertedVectors.find(v => v.id === c.id);
+      expect(vec).toBeDefined();
+      expect(vec.values).toEqual(Array(1024).fill(idx + 0.5));
+      expect(vec.metadata).toEqual({
+        user_id: 'user-456',
+        document_id: docId
+      });
+    });
+
+    // 3. Simulate Retry: run ingestion again
+    vi.mocked(globalThis.fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        choices: [{ message: { content: '["Vector", "Retry"]' } }]
+      })
+    });
+
+    await processDocument(env, docId);
+
+    // Assert deleteByIds was called with the old chunk IDs
+    const oldChunkIds = chunks.map(c => c.id);
+    expect(fakeVectorize.deleteByIds).toHaveBeenCalled();
+    expect(deletedIds).toEqual(expect.arrayContaining(oldChunkIds));
+  });
 });
