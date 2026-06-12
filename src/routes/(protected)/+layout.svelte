@@ -24,8 +24,14 @@
   <!-- Top Navigation Header -->
   <header class="border-b border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-6">
         <span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">QuizGenerator</span>
+        {#if data.user}
+          <nav class="flex items-center gap-4">
+            <a href="/" class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Dashboard</a>
+            <a href="/upload" class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Upload</a>
+          </nav>
+        {/if}
       </div>
       
       {#if data.user}

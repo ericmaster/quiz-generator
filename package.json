@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "better-auth": "^1.6.17",
-    "drizzle-orm": "^0.45.2"
+    "drizzle-orm": "^0.45.2",
+    "unpdf": "^1.6.2"
   }
 }

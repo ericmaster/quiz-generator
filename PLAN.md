@@ -68,7 +68,7 @@ Implement user authentication using Better Auth and setup the Cloudflare D1 data
 ---
 
 ## Phase 3: Client-side Document Parsing & Storage
-### Status: `[ ] Not Started`
+### Status: `[x] Completed`
 
 **Description:** 
 Implement client-side parsing of Documents (PDF, plain text, or Markdown) to extract raw text, enforcing a 5MB file size limit to avoid overwhelming the system. PDFs are parsed via `unpdf`; text/Markdown are read directly via FileReader.
@@ -88,9 +88,9 @@ Implement client-side parsing of Documents (PDF, plain text, or Markdown) to ext
 - **Testing:** Subagent should test the UI upload flow with a large PDF to verify the 5MB size limit rejection works and extraction succeeds for smaller files.
 
 **Definition of Done:**
-- [ ] Users can upload a PDF up to 5MB.
-- [ ] The browser successfully extracts text and sends it to the server.
-- [ ] Document metadata is stored in D1 and raw text is stored in R2.
+- [x] Users can upload a PDF up to 5MB.
+- [x] The browser successfully extracts text and sends it to the server.
+- [x] Document metadata is stored in D1 and raw text is stored in R2.
 
 ---
 
