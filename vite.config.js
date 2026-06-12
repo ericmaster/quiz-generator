@@ -1,34 +1,23 @@
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { viteStaticCopy } from "vite-plugin-static-copy";
-import { existsSync } from "fs";
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vitest/config';
+import { existsSync } from 'fs';
 
 let localConfig = {};
-if (existsSync("./vite.config.local.js")) {
-  localConfig = await import("./vite.config.local.js").then(
+if (existsSync('./vite.config.local.js')) {
+  const localConfigPath = './vite.config.local.js';
+  localConfig = await import(localConfigPath).then(
     (module) => module.default
   );
 }
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    svelte(),
-    viteStaticCopy({
-      targets: [
-        {
-          src: "data/**/*",
-          dest: "data",
-          transform: (contents, filepath) => {
-            const filename = filepath.split("/").pop();
-            if (filename === "mcqs_sample.json" || filename === "README.md") {
-              return null; // Exclude these files
-            }
-            return contents; // Copy other files as-is
-          },
-        },
-      ],
-    }),
-  ],
+  plugins: [sveltekit()],
+  resolve: {
+    conditions: process.env.VITEST ? ['browser'] : [],
+  },
+  test: {
+    include: ['src/**/*.{test,spec}.{js,ts}'],
+    environment: 'jsdom',
+  },
   ...localConfig,
 });

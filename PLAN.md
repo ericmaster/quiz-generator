@@ -14,7 +14,7 @@ This document outlines the phased implementation plan for transforming the exist
 ---
 
 ## Phase 1: Foundation & SvelteKit Migration
-### Status: `[~] In Progress`
+### Status: `[x] Completed`
 
 **Description:** 
 Migrate the existing Vite SPA to a SvelteKit application targeting Cloudflare Workers with Static Assets (not Pages — Pages is in maintenance mode). Setup the basic routing structure.
@@ -33,9 +33,9 @@ Migrate the existing Vite SPA to a SvelteKit application targeting Cloudflare Wo
 - **Testing:** Subagent should run `npm run build` and `npm run preview` to verify that the adapter-cloudflare successfully builds the application without SSR errors.
 
 **Definition of Done:**
-- [ ] Application runs locally via `npm run dev`.
-- [ ] Application builds successfully via adapter-cloudflare.
-- [ ] The quiz-taking UI (Questions/Result components) works in SvelteKit routes. (The static manifest.json/data-folder quiz mode is dropped — see Phase 7 for the saved-quiz replacement.)
+- [x] Application runs locally via `npm run dev`.
+- [x] Application builds successfully via adapter-cloudflare.
+- [x] The quiz-taking UI (Questions/Result components) works in SvelteKit routes. (The static manifest.json/data-folder quiz mode is dropped — see Phase 7 for the saved-quiz replacement.)
 
 ---
 

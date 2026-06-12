@@ -1,0 +1,24 @@
+[
+  {
+    "question": "What is the output of ML concept 1?",
+    "options": [
+      "Correct Answer 1",
+      "Wrong Answer A1",
+      "Wrong Answer B1",
+      "Wrong Answer C1"
+    ],
+    "answer": "Correct Answer 1",
+    "explanation": "Explanation 1"
+  },
+  {
+    "question": "What is the output of ML concept 2?",
+    "options": [
+      "Correct Answer 2",
+      "Wrong Answer A2",
+      "Wrong Answer B2",
+      "Wrong Answer C2"
+    ],
+    "answer": "Correct Answer 2",
+    "explanation": "Explanation 2"
+  }
+]
