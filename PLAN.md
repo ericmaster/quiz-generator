@@ -151,7 +151,7 @@ Embed the chunks using Cloudflare AI, store them in Vectorize, and implement the
 ---
 
 ## Phase 6: Quiz Generation & UI Integration
-### Status: `[ ] Not Started`
+### Status: `[x] Completed`
 
 **Description:** 
 Allow the user to select topics, difficulty, and question count. Use the hybrid search pipeline to retrieve context and generate the final quiz.
@@ -173,9 +173,9 @@ Allow the user to select topics, difficulty, and question count. Use the hybrid 
 - **Testing:** Subagent performs an end-to-end simulated run of selecting topics and verifying the generated quiz structure.
 
 **Definition of Done:**
-- [ ] User can generate a quiz based on selected topics.
-- [ ] Questions accurately reflect the uploaded document context.
-- [ ] Deleting/updating a source cleans up related database rows and vectors.
+- [x] User can generate a quiz based on selected topics.
+- [x] Questions accurately reflect the uploaded document context.
+- [x] Deleting/updating a source cleans up related database rows and vectors.
 
 ---
 

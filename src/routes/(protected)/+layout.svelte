@@ -30,6 +30,7 @@
           <nav class="flex items-center gap-4">
             <a href="/" class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Dashboard</a>
             <a href="/upload" class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Upload</a>
+            <a href="/documents" class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Documents</a>
           </nav>
         {/if}
       </div>
