@@ -20,6 +20,13 @@
   let emptyStateMsg = $state('');
   let currentStage = $state('setup'); // 'setup' | 'quiz'
 
+  // Save Quiz state
+  let showSaveForm = $state(false);
+  let saveTitle = $state('');
+  let isSaving = $state(false);
+  let savedQuizId = $state('');
+  let saveError = $state('');
+
   // Toggle topic selection
   function toggleTopic(id) {
     if (selectedTopicIds.includes(id)) {
@@ -40,6 +47,10 @@
       isGenerating = true;
       errorMsg = '';
       emptyStateMsg = '';
+      showSaveForm = false;
+      saveTitle = '';
+      savedQuizId = '';
+      saveError = '';
       
       const response = await fetch('/api/quiz/generate', {
         method: 'POST',
@@ -107,12 +118,58 @@
     }, 100);
   }
 
+  async function confirmSaveQuiz() {
+    if (!saveTitle.trim()) {
+      saveError = 'Title is required';
+      return;
+    }
+    try {
+      isSaving = true;
+      saveError = '';
+      
+      const mappedQuestionsForSave = questions.map(q => ({
+        question: q.question,
+        options: q.options,
+        answer: q.answer,
+        explanation: q.explanation || ''
+      }));
+
+      const response = await fetch('/api/quiz/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: saveTitle.trim(),
+          difficulty,
+          questions: mappedQuestionsForSave
+        })
+      });
+
+      if (!response.ok) {
+        const errBody = await response.json();
+        throw new Error(errBody.error || 'Failed to save quiz');
+      }
+
+      const resData = await response.json();
+      savedQuizId = resData.id;
+      showSaveForm = false;
+    } catch (err) {
+      console.error(err);
+      saveError = err.message || 'An error occurred while saving the quiz';
+    } finally {
+      isSaving = false;
+    }
+  }
+
   function resetToSetup() {
     questions = [];
     userAnswers = [];
     result = null;
     isSubmitted = false;
     currentStage = 'setup';
+    showSaveForm = false;
+    saveTitle = '';
+    savedQuizId = '';
+    saveError = '';
   }
 
   function retakeQuiz() {
@@ -301,17 +358,77 @@
           <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">
             Total Questions: <strong class="text-slate-850 dark:text-slate-200">{questions.length}</strong>
           </span>
-          <button
-            onclick={resetToSetup}
-            class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 flex items-center gap-1.5 active:scale-95 transition"
-          >
-            <!-- Back Arrow icon -->
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Choose Other Topics
-          </button>
+          <div class="flex items-center gap-4">
+            {#if savedQuizId}
+              <button
+                disabled
+                class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 cursor-not-allowed"
+              >
+                Saved ✓
+              </button>
+            {:else}
+              <button
+                onclick={() => {
+                  showSaveForm = !showSaveForm;
+                  if (showSaveForm) {
+                    const selectedTopics = data.topics.filter(t => selectedTopicIds.includes(t.id)).map(t => t.name);
+                    saveTitle = selectedTopics.join(', ') + ' Quiz';
+                  }
+                  saveError = '';
+                }}
+                class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 flex items-center gap-1.5 active:scale-95 transition"
+              >
+                Save Quiz
+              </button>
+            {/if}
+            <button
+              onclick={resetToSetup}
+              class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 flex items-center gap-1.5 active:scale-95 transition"
+            >
+              <!-- Back Arrow icon -->
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Choose Other Topics
+            </button>
+          </div>
         </div>
+
+        {#if showSaveForm}
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-bold text-slate-800 dark:text-slate-200">Save Quiz Details</span>
+              <button onclick={() => { showSaveForm = false; saveError = ''; }} class="text-slate-400 hover:text-slate-655 text-lg">&times;</button>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input
+                type="text"
+                bind:value={saveTitle}
+                placeholder="Enter quiz title..."
+                class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-2 focus:ring-indigo-500 font-semibold text-sm"
+              />
+              <button
+                onclick={confirmSaveQuiz}
+                disabled={isSaving || !saveTitle.trim()}
+                class="bg-indigo-650 hover:bg-indigo-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition active:scale-95 disabled:opacity-50"
+              >
+                {isSaving ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+            {#if saveError}
+              <p class="text-rose-500 text-xs font-semibold">{saveError}</p>
+            {/if}
+          </div>
+        {/if}
+
+        {#if savedQuizId}
+          <div class="bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-250 dark:border-emerald-900/40 p-4 rounded-xl text-emerald-800 dark:text-emerald-400 font-semibold text-sm flex items-center justify-between">
+            <span>Quiz saved!</span>
+            <a href="/quizzes" class="text-indigo-600 dark:text-indigo-405 hover:underline flex items-center gap-1">
+              View in Saved Quizzes →
+            </a>
+          </div>
+        {/if}
 
         <!-- Questions list component -->
         <Questions {questions} bind:userAnswers />
