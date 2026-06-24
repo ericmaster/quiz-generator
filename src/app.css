@@ -1,2 +1,23 @@
 @config "../tailwind.config.cjs";
 @import "tailwindcss";
+
+/*
+  Preserve Tailwind v3 default behavior across the v4 migration:
+  bare `border-*`/`divide-*` defaulted to gray-200 (now currentColor) and
+  the `ring` utility was a 3px blue-500 ring (now 1px currentColor).
+  These shims keep the existing UI visually unchanged.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@theme {
+  --default-ring-width: 3px;
+  --default-ring-color: var(--color-blue-500);
+}
