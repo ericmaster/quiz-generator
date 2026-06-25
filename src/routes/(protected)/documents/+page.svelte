@@ -3,7 +3,8 @@
 
   let { data } = $props();
   
-  let documents = $state(data.documents || []);
+  let initialDocuments = data.documents || [];
+  let documents = $state(initialDocuments);
   let activePollers = new Map(); // docId -> intervalId
   let isDeleting = $state(null); // docId being deleted
   let isRetrying = $state(null); // docId being retried

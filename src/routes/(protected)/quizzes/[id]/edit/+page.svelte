@@ -2,11 +2,13 @@
   let { data } = $props();
 
   // Reactive local states
-  let questions = $state(data.questions || []);
-  let savedOrderIds = $state(data.questions.map(q => q.id));
+  let initialQuestions = data.questions || [];
+  let initialQuiz = data.quiz || {};
+  let questions = $state(initialQuestions);
+  let savedOrderIds = $state(initialQuestions.map(q => q.id));
 
-  let title = $state(data.quiz.title || '');
-  let originalTitle = $state(data.quiz.title || '');
+  let title = $state(initialQuiz.title || '');
+  let originalTitle = $state(initialQuiz.title || '');
   let isTitleSaving = $state(false);
   let titleError = $state('');
 
