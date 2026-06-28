@@ -3,8 +3,11 @@
   import Result from '$lib/components/Result.svelte';
 
   let { data } = $props();
-
-  let userAnswers = $state(new Array(data.questions.length).fill(''));
+  
+  function getAnswers() {
+    return new Array(data.questions.length).fill('');
+  }
+  let userAnswers = $state(getAnswers());
   let isSubmitted = $state(false);
   let result = $state(null);
 

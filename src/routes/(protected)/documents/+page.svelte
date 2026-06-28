@@ -3,7 +3,14 @@
 
   let { data } = $props();
   
-  let documents = $state(data.documents || []);
+  function getDocs() {
+    return data.documents || [];
+  }
+  let documents = $state(getDocs());
+  
+  $effect(() => {
+    documents = data.documents || [];
+  });
   
   let activePollers = new Map(); // docId -> intervalId
   let isDeleting = $state(null); // docId being deleted
