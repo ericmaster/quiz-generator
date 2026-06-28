@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
 import { existsSync } from 'fs';
@@ -11,7 +12,7 @@ if (existsSync('./vite.config.local.js')) {
 }
 
 export default defineConfig({
-  plugins: [sveltekit()],
+  plugins: [tailwindcss(), sveltekit()],
   ...(process.env.VITEST ? {
     resolve: {
       conditions: ['browser']

@@ -116,7 +116,7 @@
 <main class="min-h-[calc(100vh-4rem)] flex items-center justify-center p-6 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
   <div class="w-full max-w-xl">
     <div class="text-center mb-8">
-      <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent sm:text-4xl mb-3">
+      <h1 class="text-3xl font-extrabold tracking-tight bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent sm:text-4xl mb-3">
         Upload Document
       </h1>
       <p class="text-slate-600 dark:text-slate-400 text-sm font-medium">
@@ -266,7 +266,7 @@
               <button
                 type="button"
                 onclick={handleUpload}
-                class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-3 px-6 rounded-2xl shadow-lg shadow-indigo-500/20 active:scale-95 transition"
+                class="flex-1 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-3 px-6 rounded-2xl shadow-lg shadow-indigo-500/20 active:scale-95 transition"
               >
                 Extract & Upload
               </button>

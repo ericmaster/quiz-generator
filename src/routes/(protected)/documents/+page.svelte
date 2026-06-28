@@ -136,7 +136,7 @@
     <!-- Header banner -->
     <header class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
       <div>
-        <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-500 via-purple-505 to-pink-500 bg-clip-text text-transparent sm:text-4xl mb-2">
+        <h1 class="text-3xl font-extrabold tracking-tight bg-linear-to-r from-indigo-500 via-purple-505 to-pink-500 bg-clip-text text-transparent sm:text-4xl mb-2">
           Knowledge Base Documents
         </h1>
         <p class="text-slate-500 dark:text-slate-400 font-medium">

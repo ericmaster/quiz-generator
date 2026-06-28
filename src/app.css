@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@config "../tailwind.config.cjs";
 
 /*
   Preserve Tailwind v3 default behavior across the v4 migration:

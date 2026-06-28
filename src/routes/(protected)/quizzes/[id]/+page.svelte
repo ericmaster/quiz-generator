@@ -105,7 +105,7 @@
         <div class="flex justify-center py-6">
           <button
             onclick={submitQuiz}
-            class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-555 text-white font-bold px-12 py-4 rounded-2xl shadow-lg shadow-indigo-500/20 active:scale-95 transition-all duration-200 text-lg"
+            class="w-full sm:w-auto bg-linear-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-555 text-white font-bold px-12 py-4 rounded-2xl shadow-lg shadow-indigo-500/20 active:scale-95 transition-all duration-200 text-lg"
           >
             Submit Quiz
           </button>

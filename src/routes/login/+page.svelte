@@ -134,7 +134,7 @@
   <div class="max-w-md w-full space-y-8 relative z-10">
     <!-- Brand / Title -->
     <div class="text-center">
-      <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent sm:text-5xl">
+      <h1 class="text-4xl font-extrabold tracking-tight bg-linear-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent sm:text-5xl">
         QuizGenerator
       </h1>
       <p class="mt-3 text-slate-400 font-medium">
@@ -270,7 +270,7 @@
         <button
           type="submit"
           disabled={isLoading || (isSignUp && (!lengthValid || !passwordsMatch))}
-          class="w-full mt-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-950/40 active:scale-95 disabled:opacity-50 disabled:active:scale-100 transition duration-200 flex items-center justify-center gap-2"
+          class="w-full mt-2 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-950/40 active:scale-95 disabled:opacity-50 disabled:active:scale-100 transition duration-200 flex items-center justify-center gap-2"
         >
           {#if isLoading}
             <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

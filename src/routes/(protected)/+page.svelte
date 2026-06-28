@@ -193,7 +193,7 @@
     {#if currentStage === 'setup' && !isGenerating}
       <!-- SETUP STAGE -->
       <header class="text-center mb-12">
-        <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent sm:text-5xl mb-3">
+        <h1 class="text-4xl font-extrabold tracking-tight bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent sm:text-5xl mb-3">
           Generate a Practice Quiz
         </h1>
         <p class="text-slate-600 dark:text-slate-400 text-lg font-medium">
@@ -324,7 +324,7 @@
             type="button"
             onclick={generateNewQuiz}
             disabled={isGenerating || selectedTopicIds.length === 0}
-            class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 text-white font-bold px-12 py-4 rounded-2xl shadow-lg shadow-indigo-550/20 active:scale-95 transition-all duration-200 text-lg disabled:opacity-50 disabled:pointer-events-none"
+            class="w-full sm:w-auto bg-linear-to-r from-indigo-600 to-purple-650 hover:from-indigo-550 hover:to-purple-550 text-white font-bold px-12 py-4 rounded-2xl shadow-lg shadow-indigo-550/20 active:scale-95 transition-all duration-200 text-lg disabled:opacity-50 disabled:pointer-events-none"
           >
             Generate Quiz
           </button>
@@ -437,7 +437,7 @@
           <div class="flex justify-center py-6">
             <button
               onclick={submitQuiz}
-              class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-12 py-4 rounded-2xl shadow-lg shadow-indigo-500/20 active:scale-95 transition-all duration-200 text-lg"
+              class="w-full sm:w-auto bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-12 py-4 rounded-2xl shadow-lg shadow-indigo-500/20 active:scale-95 transition-all duration-200 text-lg"
             >
               Submit Quiz
             </button>
