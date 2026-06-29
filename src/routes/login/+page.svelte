@@ -189,7 +189,7 @@
               bind:value={name}
               placeholder="Alex Johnson"
               required
-              class="w-full bg-slate-900/60 border border-slate-700/80 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+              class="w-full bg-slate-900/60 border border-slate-700/80 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
             />
           </div>
         {/if}
@@ -202,7 +202,7 @@
             bind:value={email}
             placeholder="name@example.com"
             required
-            class="w-full bg-slate-900/60 border border-slate-700/80 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+            class="w-full bg-slate-900/60 border border-slate-700/80 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
           />
         </div>
 
@@ -214,7 +214,7 @@
             bind:value={password}
             placeholder="••••••••"
             required
-            class="w-full bg-slate-900/60 border border-slate-700/80 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+            class="w-full bg-slate-900/60 border border-slate-700/80 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
           />
 
           <!-- Password strength indicators for Sign Up -->
@@ -259,7 +259,7 @@
               bind:value={confirmPassword}
               placeholder="••••••••"
               required
-              class="w-full bg-slate-900/60 border border-slate-700/80 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200 {confirmPassword && !passwordsMatch ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500' : ''}"
+              class="w-full bg-slate-900/60 border border-slate-700/80 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200 {confirmPassword && !passwordsMatch ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500' : ''}"
             />
             {#if confirmPassword && !passwordsMatch}
               <p class="text-[11px] text-rose-400 font-semibold mt-1">Passwords do not match</p>
