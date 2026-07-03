@@ -14,6 +14,17 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+  
+  button,
+  [type='button'],
+  [type='reset'],
+  [type='submit'] {
+    cursor: pointer;
+  }
+  
+  ::placeholder {
+    color: var(--color-gray-400, #9ca3af);
+  }
 }
 
 @theme {
