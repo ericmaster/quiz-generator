@@ -201,7 +201,7 @@
         </p>
       </header>
 
-      <div class="space-y-8 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 rounded-3xl p-6 sm:p-10 shadow-sm transition duration-300">
+      <div class="space-y-8 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 rounded-3xl p-6 sm:p-10 shadow-xs transition duration-300">
         <!-- Error Alert -->
         {#if errorMsg}
           <div class="bg-rose-50 dark:bg-rose-950/20 border-2 border-rose-200 dark:border-rose-900/40 p-5 rounded-2xl flex items-start gap-3 text-rose-800 dark:text-rose-450">
@@ -354,7 +354,7 @@
       </header>
 
       <div class="space-y-8">
-        <div class="flex justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+        <div class="flex justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-xs">
           <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">
             Total Questions: <strong class="text-slate-850 dark:text-slate-200">{questions.length}</strong>
           </span>
@@ -395,7 +395,7 @@
         </div>
 
         {#if showSaveForm}
-          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xs flex flex-col gap-3">
             <div class="flex justify-between items-center">
               <span class="text-sm font-bold text-slate-800 dark:text-slate-200">Save Quiz Details</span>
               <button onclick={() => { showSaveForm = false; saveError = ''; }} class="text-slate-400 hover:text-slate-655 text-lg">&times;</button>
@@ -452,7 +452,7 @@
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
               <button
                 onclick={retakeQuiz}
-                class="w-full sm:w-auto bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold px-8 py-3.5 rounded-xl shadow-sm active:scale-95 transition"
+                class="w-full sm:w-auto bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold px-8 py-3.5 rounded-xl shadow-xs active:scale-95 transition"
               >
                 Retake Quiz
               </button>

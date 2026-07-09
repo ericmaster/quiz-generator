@@ -26,7 +26,7 @@
 
 <div class="space-y-6">
   {#each questions as question, i}
-    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-300">
+    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xs border border-slate-100 dark:border-slate-800 transition-all duration-300">
       <div class="flex items-start gap-4 mb-4">
         <span class="inline-flex items-center justify-center bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-bold w-8 h-8 rounded-lg text-sm shrink-0">
           {i + 1}

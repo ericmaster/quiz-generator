@@ -76,7 +76,7 @@
     </header>
 
     <div class="space-y-8">
-      <div class="flex justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+      <div class="flex justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-xs">
         <a
           href="/quizzes"
           class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5 active:scale-95 transition"
@@ -120,7 +120,7 @@
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
             <button
               onclick={retakeQuiz}
-              class="w-full sm:w-auto bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold px-8 py-3.5 rounded-xl shadow-sm active:scale-95 transition"
+              class="w-full sm:w-auto bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold px-8 py-3.5 rounded-xl shadow-xs active:scale-95 transition"
             >
               Retake Quiz
             </button>

@@ -198,7 +198,7 @@
     </div>
 
     <!-- Editable Title Header -->
-    <div class="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm mb-8">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 rounded-2xl p-6 shadow-xs mb-8">
       <h2 class="text-sm font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider mb-2">Quiz Title</h2>
       <div class="flex flex-col sm:flex-row gap-3">
         <input
@@ -232,7 +232,7 @@
         <button
           onclick={saveOrder}
           disabled={isSavingOrder}
-          class="bg-white text-indigo-650 hover:bg-indigo-50 font-extrabold px-5 py-2 rounded-xl text-sm transition active:scale-95 shadow"
+          class="bg-white text-indigo-650 hover:bg-indigo-50 font-extrabold px-5 py-2 rounded-xl text-sm transition active:scale-95 shadow-sm"
         >
           {isSavingOrder ? 'Saving...' : 'Save Order Now'}
         </button>
@@ -242,7 +242,7 @@
     <!-- Questions list -->
     <div class="space-y-6">
       {#each questions as q, index (q.id)}
-        <div class="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm transition duration-300">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 rounded-2xl p-6 shadow-xs transition duration-300">
           
           {#if editingQuestionId === q.id}
             <!-- Inline Edit Form -->
@@ -313,7 +313,7 @@
                 </button>
                 <button
                   onclick={() => saveQuestion(q.id)}
-                  class="bg-indigo-600 hover:bg-indigo-550 text-white font-bold px-5 py-2 rounded-xl text-sm transition shadow"
+                  class="bg-indigo-600 hover:bg-indigo-550 text-white font-bold px-5 py-2 rounded-xl text-sm transition shadow-sm"
                 >
                   Save Changes
                 </button>
@@ -336,7 +336,7 @@
                 <button
                   onclick={() => moveQuestion(index, 'up')}
                   disabled={index === 0}
-                  class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-slate-500"
+                  class="p-1 rounded-sm hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-slate-500"
                   title="Move Up"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -346,7 +346,7 @@
                 <button
                   onclick={() => moveQuestion(index, 'down')}
                   disabled={index === questions.length - 1}
-                  class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-slate-500"
+                  class="p-1 rounded-sm hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-slate-500"
                   title="Move Down"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

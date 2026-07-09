@@ -21,7 +21,7 @@
   $: percentage = result.total > 0 ? Math.round((result.score / result.total) * 100) : 0;
 </script>
 
-<div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-300">
+<div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xs border border-slate-100 dark:border-slate-800 transition-all duration-300">
   <div class="text-center mb-8">
     <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2">Quiz Completed!</h2>
     <div class="inline-flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-950 rounded-full w-32 h-32 border-4 border-indigo-500/30 mb-4">

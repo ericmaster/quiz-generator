@@ -198,7 +198,7 @@
           >
             <!-- Overlay Loader/Progress -->
             {#if status === 'extracting' || status === 'uploading'}
-              <div class="absolute inset-0 bg-white/95 dark:bg-slate-900/95 flex flex-col items-center justify-center p-6 space-y-4 z-20 backdrop-blur-sm">
+              <div class="absolute inset-0 bg-white/95 dark:bg-slate-900/95 flex flex-col items-center justify-center p-6 space-y-4 z-20 backdrop-blur-xs">
                 <div class="relative w-14 h-14">
                   <div class="absolute inset-0 border-4 border-slate-100 dark:border-slate-800 rounded-full"></div>
                   <div class="absolute inset-0 border-4 border-indigo-600 dark:border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
