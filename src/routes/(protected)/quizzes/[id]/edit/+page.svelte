@@ -232,7 +232,7 @@
         <button
           onclick={saveOrder}
           disabled={isSavingOrder}
-          class="bg-white text-indigo-650 hover:bg-indigo-50 font-extrabold px-5 py-2 rounded-xl text-sm transition active:scale-95 shadow-xs"
+          class="bg-white text-indigo-650 hover:bg-indigo-50 font-extrabold px-5 py-2 rounded-xl text-sm transition active:scale-95 shadow-sm"
         >
           {isSavingOrder ? 'Saving...' : 'Save Order Now'}
         </button>
@@ -313,7 +313,7 @@
                 </button>
                 <button
                   onclick={() => saveQuestion(q.id)}
-                  class="bg-indigo-600 hover:bg-indigo-550 text-white font-bold px-5 py-2 rounded-xl text-sm transition shadow-xs"
+                  class="bg-indigo-600 hover:bg-indigo-550 text-white font-bold px-5 py-2 rounded-xl text-sm transition shadow-sm"
                 >
                   Save Changes
                 </button>
@@ -336,7 +336,7 @@
                 <button
                   onclick={() => moveQuestion(index, 'up')}
                   disabled={index === 0}
-                  class="p-1 rounded-xs hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-slate-500"
+                  class="p-1 rounded-sm hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-slate-500"
                   title="Move Up"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -346,7 +346,7 @@
                 <button
                   onclick={() => moveQuestion(index, 'down')}
                   disabled={index === questions.length - 1}
-                  class="p-1 rounded-xs hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-slate-500"
+                  class="p-1 rounded-sm hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none text-slate-500"
                   title="Move Down"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
