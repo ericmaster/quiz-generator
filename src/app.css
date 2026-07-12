@@ -15,10 +15,8 @@
     border-color: var(--color-gray-200, currentColor);
   }
   
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
     cursor: pointer;
   }
   
